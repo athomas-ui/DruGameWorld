@@ -1,0 +1,375 @@
+// Mission definitions for CYBER//BREACH.
+// Each mission is a self-contained scenario with one correct choice.
+// format: "email" | "sms" | "chat" | "call" | "scene" | "boss" controls how Mission.jsx renders the briefing.
+
+export const CATEGORIES = {
+  PHISHING: 'Phishing',
+  MALWARE: 'Malware',
+  SOCIAL_ENGINEERING: 'Social Engineering',
+  PASSWORD_SECURITY: 'Password Security',
+  RANSOMWARE: 'Ransomware',
+  INSIDER_THREAT: 'Insider Threat',
+  NETWORK_SECURITY: 'Network Security',
+  DATA_HANDLING: 'Data Handling',
+  PHYSICAL_SECURITY: 'Physical Security',
+  INCIDENT_RESPONSE: 'Incident Response',
+};
+
+export const MISSIONS = [
+  {
+    id: 'm01',
+    title: 'The Bait',
+    category: CATEGORIES.PHISHING,
+    difficulty: 'Easy',
+    xp: 50,
+    format: 'email',
+    briefing: {
+      from: 'security@micr0soft-support.com',
+      subject: 'Urgent: Account Suspension',
+      body: 'Your account will be permanently suspended if the issue is not resolved within 30 minutes. Verify your account immediately by clicking the link below.',
+    },
+    prompt: 'What do you do?',
+    choices: [
+      { id: 'A', text: 'Open the link and log in to verify' },
+      { id: 'B', text: 'Report the email as phishing' },
+      { id: 'C', text: 'Forward it to a coworker to check' },
+      { id: 'D', text: 'Reply to the sender asking if it is real' },
+    ],
+    correct: 'B',
+    explain: {
+      correct: 'Nice catch. "micr0soft" (with a zero) is a lookalike domain, and the urgency + suspension threat is a classic phishing pressure tactic. Reporting it keeps the real inbox clean of future lures.',
+      incorrect: 'The sender domain "micr0soft-support.com" uses a zero instead of an "o" — a classic lookalike domain. Combined with the fake urgency, this is phishing. The safe move is to report it, never click, forward, or reply.',
+    },
+  },
+  {
+    id: 'm02',
+    title: 'Friendly Reminder',
+    category: CATEGORIES.PHISHING,
+    difficulty: 'Easy',
+    xp: 50,
+    format: 'email',
+    briefing: {
+      from: 'hr@icstars-org.net',
+      subject: 'Benefits Enrollment Closing Today',
+      body: 'Hi team, open enrollment closes at 5pm today. Please confirm your selections through our portal: hr-benefits-portal-login.com. Use your work email and password to sign in.',
+    },
+    prompt: 'What do you do?',
+    choices: [
+      { id: 'A', text: 'Log in with your work credentials to confirm benefits' },
+      { id: 'B', text: 'Check the sender domain and the link domain before doing anything' },
+      { id: 'C', text: 'Ignore it, it is probably fine' },
+      { id: 'D', text: 'Screenshot it and post it in a public group chat' },
+    ],
+    correct: 'B',
+    explain: {
+      correct: 'Right instinct. The company domain is "icstars-org.net" but the login link points to a totally different domain. Verifying both before entering credentials is exactly how you catch credential-harvesting pages.',
+      incorrect: 'The real company domain and the login link domain do not match — a sign this is a credential-harvesting page. Always verify sender and link domains before entering a password, and report it rather than ignoring it.',
+    },
+  },
+  {
+    id: 'm03',
+    title: 'Unknown USB',
+    category: CATEGORIES.MALWARE,
+    difficulty: 'Medium',
+    xp: 75,
+    format: 'scene',
+    briefing: {
+      sceneTitle: 'Break Room, 8:52 AM',
+      body: 'You find a USB drive on the floor near your desk labeled "2026 SALARY REVIEW - CONFIDENTIAL". No one around claims it. Your laptop is unlocked and right there.',
+    },
+    prompt: 'What do you do?',
+    choices: [
+      { id: 'A', text: 'Plug it in to see whose it is so you can return it' },
+      { id: 'B', text: 'Hand it to IT/security without plugging it in' },
+      { id: 'C', text: 'Plug it into a personal laptop instead, just to be safe' },
+      { id: 'D', text: 'Leave it exactly where it was' },
+    ],
+    correct: 'B',
+    explain: {
+      correct: 'Exactly right. A tempting label like "salary review" is a classic USB-drop social engineering trick to get malware executed. Hand unknown media to IT/security — never plug it into any machine, work or personal.',
+      incorrect: 'This is a textbook "USB drop" attack — an enticing label is used to bait someone into plugging in a drive that auto-runs malware. Any computer counts, personal or not. The safe move is to hand it to IT/security unplugged.',
+    },
+  },
+  {
+    id: 'm04',
+    title: 'Wire Transfer Request',
+    category: CATEGORIES.SOCIAL_ENGINEERING,
+    difficulty: 'Medium',
+    xp: 75,
+    format: 'email',
+    briefing: {
+      from: 'CEO.Johnson.Travel@gmail.com',
+      subject: "Quick favor - don't tell anyone yet",
+      body: "I'm in a closed-door meeting and can't take calls. I need you to wire $4,850 to a vendor before 3pm to close a deal. Keep this between us for now, I'll explain later. Reply with your availability and I'll send account details.",
+    },
+    prompt: 'What do you do?',
+    choices: [
+      { id: 'A', text: 'Reply immediately to show you are available' },
+      { id: 'B', text: 'Verify the request through a separate, known channel before acting' },
+      { id: 'C', text: 'Wire the money quietly as asked to avoid upsetting the CEO' },
+      { id: 'D', text: 'Wait and see if the CEO follows up again' },
+    ],
+    correct: 'B',
+    explain: {
+      correct: 'Correct. Urgency, secrecy, a free webmail address instead of the real company domain, and a money request are all hallmarks of CEO/BEC fraud. Always verify out-of-band — call a known number, don\'t reply to the email itself.',
+      incorrect: 'This has every sign of business email compromise: urgency, secrecy ("don\'t tell anyone"), a personal Gmail address instead of the CEO\'s real one, and a money request. Verify through a separate trusted channel (phone call to a known number) before acting.',
+    },
+  },
+  {
+    id: 'm05',
+    title: 'The IT Helpdesk Call',
+    category: CATEGORIES.SOCIAL_ENGINEERING,
+    difficulty: 'Medium',
+    xp: 75,
+    format: 'call',
+    briefing: {
+      caller: 'Unknown Caller — "IT Support"',
+      body: '"Hi, this is Mike from IT. We\'re seeing a security alert on your account and need to verify your identity real quick — can you read me the 6-digit code that was just texted to your phone?"',
+    },
+    prompt: 'What do you do?',
+    choices: [
+      { id: 'A', text: 'Read the code so the issue can be fixed fast' },
+      { id: 'B', text: 'Hang up and call the IT helpdesk back using the official number' },
+      { id: 'C', text: 'Text the code instead of saying it out loud' },
+      { id: 'D', text: 'Ask "Mike" for his employee ID and continue if he has one' },
+    ],
+    correct: 'B',
+    explain: {
+      correct: 'Spot on. A legitimate MFA code should never be read aloud to anyone who calls you unprompted — that code existing at all means someone already has your password. Hang up and call back on a verified number.',
+      incorrect: 'A 6-digit code texted to you is an MFA one-time passcode. No real IT staffer needs you to read it aloud — this is an MFA-bypass social engineering attack. Hang up and call the helpdesk back through its official number to verify.',
+    },
+  },
+  {
+    id: 'm06',
+    title: 'Password Reset',
+    category: CATEGORIES.PASSWORD_SECURITY,
+    difficulty: 'Easy',
+    xp: 50,
+    format: 'scene',
+    briefing: {
+      sceneTitle: 'New Account Setup',
+      body: 'You just got a new work account and need to set a password. Your options, ranked by what you are considering:',
+    },
+    prompt: 'Which password is the strongest choice?',
+    choices: [
+      { id: 'A', text: 'Password123!' },
+      { id: 'B', text: 'YourCompanyName2026' },
+      { id: 'C', text: 'Tr0ub4dor&3' },
+      { id: 'D', text: 'correct-horse-battery-staple-lagoon-42' },
+    ],
+    correct: 'D',
+    explain: {
+      correct: 'Length beats complexity. A long passphrase of unrelated words is far harder to crack than a short, "complex-looking" password, and it is easier for a human to remember and type.',
+      incorrect: 'Password123!, company-name passwords, and leetspeak substitutions like "Tr0ub4dor&3" are all in common crackable patterns attackers already model for. A long random passphrase ("correct-horse-battery-staple...") resists cracking far better and is easier to remember.',
+    },
+  },
+  {
+    id: 'm07',
+    title: 'Reused Credentials',
+    category: CATEGORIES.PASSWORD_SECURITY,
+    difficulty: 'Medium',
+    xp: 75,
+    format: 'scene',
+    briefing: {
+      sceneTitle: 'Breach Notification',
+      body: 'You get an email: a shopping site you used years ago was breached and passwords were leaked. You use that same password for your work email too.',
+    },
+    prompt: 'What is the most important next step?',
+    choices: [
+      { id: 'A', text: 'Change the shopping site password only, since that is what was breached' },
+      { id: 'B', text: 'Change the password everywhere it is reused, including work, and enable MFA' },
+      { id: 'C', text: 'Wait to see if anything suspicious happens first' },
+      { id: 'D', text: 'Delete the shopping account and move on' },
+    ],
+    correct: 'B',
+    explain: {
+      correct: 'Exactly — attackers run "credential stuffing," trying leaked passwords against other sites. Since the password was reused on your work account, that account is now at risk too, so it must be changed there and everywhere else it was reused. MFA adds a second layer of protection.',
+      incorrect: 'A leaked password gets tried everywhere via "credential stuffing." Because it was reused on your work account, that account is exposed too — it needs a new, unique password and MFA, not just a fix on the breached site.',
+    },
+  },
+  {
+    id: 'm08',
+    title: 'Everything Is Locked',
+    category: CATEGORIES.RANSOMWARE,
+    difficulty: 'Hard',
+    xp: 100,
+    format: 'scene',
+    briefing: {
+      sceneTitle: '10:14 AM — Your Screen',
+      body: 'Every file on your desktop now ends in ".locked" and a red screen demands $2,000 in cryptocurrency within 48 hours "or your files are gone forever." Your network drive mapped to shared files looks affected too.',
+    },
+    prompt: 'What is your first move?',
+    choices: [
+      { id: 'A', text: 'Pay the ransom quickly before the deadline passes' },
+      { id: 'B', text: 'Disconnect the machine from the network and alert IT/security immediately' },
+      { id: 'C', text: 'Restart the computer a few times to see if it clears up' },
+      { id: 'D', text: 'Try downloading a "decryptor" tool from a forum post' },
+    ],
+    correct: 'B',
+    explain: {
+      correct: 'Correct. Isolating the machine (unplug network/Wi-Fi) stops ransomware from spreading to shared drives and other machines, and getting IT/security involved immediately preserves evidence and starts recovery from backups. Never pay or trust random "decryptor" downloads.',
+      incorrect: 'Paying doesn\'t guarantee file recovery and funds criminal operations; random forum "decryptors" are often malware themselves; rebooting can worsen damage. The priority is containment: disconnect the machine from the network and alert IT/security right away.',
+    },
+  },
+  {
+    id: 'm09',
+    title: 'The Disgruntled Coworker',
+    category: CATEGORIES.INSIDER_THREAT,
+    difficulty: 'Hard',
+    xp: 100,
+    format: 'chat',
+    briefing: {
+      chatWith: 'Jordan (Teammate)',
+      body: '"Hey, I\'m getting laid off next week and HR already locked me out of some stuff. Can you export the client list for me before my access dies? I just want a copy for myself, nothing shady."',
+    },
+    prompt: 'What do you do?',
+    choices: [
+      { id: 'A', text: 'Export it quietly since Jordan is a trusted teammate' },
+      { id: 'B', text: 'Decline and report the request to your manager or security team' },
+      { id: 'C', text: 'Tell Jordan to ask HR directly and leave it at that' },
+      { id: 'D', text: 'Export a partial list to help a little without fully breaking rules' },
+    ],
+    correct: 'B',
+    explain: {
+      correct: 'Right call. A departing employee asking someone else to exfiltrate data around a planned access cutoff is a classic insider threat pattern, even when framed innocently. Decline and report it so security can handle it properly.',
+      incorrect: 'An employee about to lose access asking a coworker to pull sensitive data "for themselves" is a textbook insider threat pattern, however friendly the framing. Any amount exported is a policy and likely legal violation — decline and report it.',
+    },
+  },
+  {
+    id: 'm10',
+    title: 'Coffee Shop Wi-Fi',
+    category: CATEGORIES.NETWORK_SECURITY,
+    difficulty: 'Medium',
+    xp: 75,
+    format: 'scene',
+    briefing: {
+      sceneTitle: 'Working Remotely',
+      body: 'You are at a coffee shop and need to log in to the company payroll system before a deadline. You see two Wi-Fi networks: "CoffeeShop_Guest" (locked, posted on a sign) and "CoffeeShop_FREE_FAST_WIFI" (open, no password).',
+    },
+    prompt: 'What is the safest way to get this done?',
+    choices: [
+      { id: 'A', text: 'Join the open "FREE_FAST_WIFI" network, it has a stronger signal' },
+      { id: 'B', text: 'Use the posted shop Wi-Fi with a company VPN enabled, or use your phone hotspot' },
+      { id: 'C', text: 'Use either network, it does not matter since the site uses a password' },
+      { id: 'D', text: 'Ask another customer if their phone hotspot is open to join' },
+    ],
+    correct: 'B',
+    explain: {
+      correct: 'Good instinct. An open network with no password and a tempting name can be an attacker-run "evil twin" hotspot set up to intercept traffic. The posted, legitimate shop network plus a VPN, or your own trusted phone hotspot, keeps your session private.',
+      incorrect: 'An unverified open network (especially one with a suspiciously generic name) can be an "evil twin" hotspot designed to intercept traffic, even to HTTPS sites via tricks like SSL stripping. Use the verified shop network with a VPN, or your own phone hotspot.',
+    },
+  },
+  {
+    id: 'm11',
+    title: 'The Overheard Call',
+    category: CATEGORIES.PHYSICAL_SECURITY,
+    difficulty: 'Easy',
+    xp: 50,
+    format: 'scene',
+    briefing: {
+      sceneTitle: 'Open Office Floor',
+      body: 'You need to read a customer their account number and the last 4 digits of their SSN to verify identity on a call. The office is open-plan and several coworkers and a visiting vendor are nearby.',
+    },
+    prompt: 'What do you do?',
+    choices: [
+      { id: 'A', text: 'Read it normally, everyone here already works here or is approved' },
+      { id: 'B', text: 'Step into a private room or lower your voice and shield your screen before sharing it' },
+      { id: 'C', text: 'Type it in chat instead of saying it out loud' },
+      { id: 'D', text: 'Ask the customer to call back later when it is quieter' },
+    ],
+    correct: 'B',
+    explain: {
+      correct: 'Correct — sensitive data like SSNs should never be said where it can be overheard, especially with an outside vendor present. Moving to a private space (or clearly shielding the screen/muting) protects the customer\'s data without delaying the call.',
+      incorrect: 'A visiting vendor is not vetted the same way as employees, and open-plan offices make "shoulder surfing" and overheard conversations easy. Sensitive identifiers should only be shared in a private setting.',
+    },
+  },
+  {
+    id: 'm12',
+    title: 'The Misdirected Spreadsheet',
+    category: CATEGORIES.DATA_HANDLING,
+    difficulty: 'Medium',
+    xp: 75,
+    format: 'email',
+    briefing: {
+      from: 'you@icstars.org',
+      subject: 'Re: Client Data Export',
+      body: 'You just hit "Send" on an email with an unencrypted spreadsheet containing customer names, emails, and phone numbers. Autocomplete filled in the recipient, and you now realize it went to an external address that is NOT your intended coworker.',
+    },
+    prompt: 'What do you do first?',
+    choices: [
+      { id: 'A', text: 'Do nothing, hope the wrong recipient does not notice' },
+      { id: 'B', text: 'Try to recall the email, then immediately report the incident to security/privacy team' },
+      { id: 'C', text: 'Send a follow-up asking them to delete it and consider it resolved' },
+      { id: 'D', text: 'Wait a day to see if it becomes a problem before telling anyone' },
+    ],
+    correct: 'B',
+    explain: {
+      correct: 'Right approach. Attempting a recall can help, but the critical step is reporting it immediately so the privacy/security team can assess exposure, notify affected customers if required, and take follow-up action — a polite request to delete is not enough on its own.',
+      incorrect: 'A misdirected email with personal data is a reportable data incident. Hoping it goes unnoticed, relying only on an informal "please delete" request, or waiting all delay the response needed to limit harm and meet notification obligations. Report it immediately.',
+    },
+  },
+  {
+    id: 'm13',
+    title: 'Full Breach Response',
+    category: CATEGORIES.INCIDENT_RESPONSE,
+    difficulty: 'Boss',
+    xp: 200,
+    format: 'boss',
+    briefing: {
+      sceneTitle: 'FINAL MISSION — Multiple Alerts Firing',
+      body: 'In the last ten minutes: a phishing email was reported by three employees, one of them clicked the link and entered their password, and their account just sent 40 emails to external addresses overnight. Leadership wants answers now.',
+    },
+    steps: [
+      {
+        prompt: 'Step 1 — What do you do immediately?',
+        choices: [
+          { id: 'A', text: 'Disable/reset the compromised account\'s credentials and sessions right away' },
+          { id: 'B', text: 'Email the whole company asking who else clicked it' },
+          { id: 'C', text: 'Wait for leadership to approve before touching the account' },
+          { id: 'D', text: 'Delete the 40 sent emails to limit the damage' },
+        ],
+        correct: 'A',
+        explain: {
+          correct: 'Containment comes first — disabling the account and killing active sessions stops the attacker from doing further damage while you investigate.',
+          incorrect: 'Every minute the compromised account stays active, the attacker keeps access. The first move is containment: disable credentials and revoke active sessions immediately.',
+        },
+      },
+      {
+        prompt: 'Step 2 — What is the next priority?',
+        choices: [
+          { id: 'A', text: 'Investigate scope: what did the attacker access, and did it spread (e.g. forwarding rules, other logins)' },
+          { id: 'B', text: 'Close the ticket since the account is already disabled' },
+          { id: 'C', text: 'Publicly post about the incident on social media for transparency' },
+          { id: 'D', text: 'Ask the employee to keep it quiet to avoid embarrassment' },
+        ],
+        correct: 'A',
+        explain: {
+          correct: 'Right — after containment comes investigation: check for malicious inbox rules, other logins from unusual locations, and what data or systems the account could reach, so you know the real blast radius.',
+          incorrect: 'Disabling the account stops new damage but does not tell you what already happened. You need to investigate scope — forwarding rules, suspicious logins, data accessed — before the incident can be considered handled.',
+        },
+      },
+      {
+        prompt: 'Step 3 — Who needs to be looped in?',
+        choices: [
+          { id: 'A', text: 'Security/incident response lead and, if customer data is involved, legal/privacy for notification obligations' },
+          { id: 'B', text: 'Nobody else, this can be handled solo to keep it simple' },
+          { id: 'C', text: 'Only the employee\'s direct manager, for performance tracking' },
+          { id: 'D', text: 'The press, to get ahead of the story' },
+        ],
+        correct: 'A',
+        explain: {
+          correct: 'Correct. Incident response is a team effort — security/IR leads coordinate the technical response, and legal/privacy teams determine if affected customers or regulators must be notified. This is bigger than one person\'s call.',
+          incorrect: 'A real incident needs the incident response process: security/IR leadership for coordination, and legal/privacy if customer data was exposed, since notification laws may apply. Handling it solo or going straight to the press skips required steps.',
+        },
+      },
+    ],
+    explain: {
+      correct: 'Mission complete. You contained the threat, scoped the damage, and escalated correctly — the full incident response loop. That is exactly how real security teams handle a breach in progress.',
+      incorrect: 'A full incident response needs all three right: contain, investigate, escalate. Review the steps you missed and try again.',
+    },
+  },
+];
+
+export function getMissionById(id) {
+  return MISSIONS.find((m) => m.id === id);
+}

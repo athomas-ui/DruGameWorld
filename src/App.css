@@ -1,0 +1,408 @@
+.screen-container {
+  width: min(100%, 760px);
+}
+
+.terminal-frame {
+  background-color: #161b22;
+  border: 2px solid #00ff9d;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.terminal-frame-title {
+  margin: 0 0 20px;
+}
+
+h1,
+h2 {
+  margin: 0 0 12px;
+}
+
+.muted {
+  color: #8b949e;
+  font-size: 0.85em;
+}
+
+/* --- Buttons --- */
+
+.primary-button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  color: #0d1117;
+  font: inherit;
+  font-weight: bold;
+  background: #00ff9d;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.primary-button:disabled {
+  color: #8b949e;
+  background: #30363d;
+  cursor: not-allowed;
+}
+
+.ghost-button {
+  display: block;
+  margin: 14px auto 0;
+  padding: 8px 18px;
+  color: #8b949e;
+  font: inherit;
+  background: transparent;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.ghost-button:hover {
+  color: #c9d1d9;
+  border-color: #8b949e;
+}
+
+button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* --- Character select --- */
+
+.character-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.character-option {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 18px;
+  color: inherit;
+  font: inherit;
+  background: #0d1117;
+  border: 2px solid #30363d;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+}
+
+.character-option:hover {
+  transform: translateY(-2px);
+}
+
+.character-option.accent-green[aria-pressed='true'] {
+  border-color: #00ff9d;
+  box-shadow: 0 0 16px #00ff9d55;
+}
+
+.character-option.accent-purple[aria-pressed='true'] {
+  border-color: #c084fc;
+  box-shadow: 0 0 16px #c084fc55;
+}
+
+.stick-figure {
+  width: 100px;
+  height: 150px;
+  overflow: visible;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 5;
+}
+
+.accent-green .stick-figure {
+  stroke: #00ff9d;
+}
+
+.accent-purple .stick-figure {
+  stroke: #c084fc;
+}
+
+.figure-detail {
+  stroke-width: 4;
+}
+
+.character-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/* --- Mission map --- */
+
+.mission-list {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+.mission-entry-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  color: inherit;
+  font: inherit;
+  background: #0d1117;
+  border: 2px solid #30363d;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.mission-entry--completed .mission-entry-button {
+  border-color: #00ff9d;
+}
+
+.mission-entry--locked .mission-entry-button {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.mission-entry-button:not(:disabled):hover {
+  border-color: #58a6ff;
+}
+
+.mission-entry-index {
+  font-weight: bold;
+  color: #58a6ff;
+  flex: 0 0 auto;
+}
+
+.mission-entry-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.mission-entry-title {
+  font-weight: bold;
+}
+
+.mission-entry-meta {
+  font-size: 0.82rem;
+  color: #8b949e;
+}
+
+.mission-entry-status {
+  flex: 0 0 auto;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* --- Action stage --- */
+
+.action-stage {
+  margin-bottom: 18px;
+}
+
+.action-hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.action-hud span:first-child {
+  color: #f85149;
+  letter-spacing: 2px;
+}
+
+.action-canvas-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.action-canvas {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  background: #0d1117;
+  cursor: crosshair;
+}
+
+.action-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: #0d1117cc;
+  border-radius: 6px;
+  text-align: center;
+  padding: 16px;
+}
+
+.action-overlay p {
+  margin: 0 0 6px;
+  font-weight: bold;
+}
+
+.action-hint {
+  text-align: center;
+  color: #8b949e;
+  font-size: 0.82rem;
+  margin: 8px 0 0;
+}
+
+/* --- Mission briefing --- */
+
+.mission-card {
+  text-align: left;
+}
+
+.mission-card h1 {
+  text-align: center;
+}
+
+.briefing {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-left: 4px solid #58a6ff;
+  border-radius: 6px;
+  padding: 16px;
+  margin: 12px 0 18px;
+}
+
+.briefing--boss {
+  border-left-color: #f85149;
+}
+
+.briefing-label {
+  margin: 0 0 8px;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #58a6ff;
+}
+
+.briefing-scene-title {
+  font-weight: bold;
+  margin: 0 0 8px;
+}
+
+.briefing-body {
+  margin: 8px 0 0;
+  line-height: 1.5;
+}
+
+.mission-prompt {
+  font-weight: bold;
+  margin: 0 0 14px;
+}
+
+/* --- Answers --- */
+
+.answer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.answer-btn {
+  width: 100%;
+  text-align: left;
+  padding: 12px 14px;
+  color: inherit;
+  font: inherit;
+  background: #0d1117;
+  border: 2px solid #30363d;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.answer-btn:not(:disabled):hover {
+  border-color: #58a6ff;
+}
+
+.answer-btn:disabled {
+  cursor: default;
+}
+
+.answer-btn--correct {
+  border-color: #00ff9d;
+  background: #00ff9d1a;
+}
+
+.answer-btn--incorrect {
+  border-color: #f85149;
+  background: #f851491a;
+}
+
+/* --- Feedback --- */
+
+.feedback-panel {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: 6px;
+  border: 1px solid #30363d;
+}
+
+.feedback-panel--correct {
+  border-color: #00ff9d;
+  background: #00ff9d0d;
+}
+
+.feedback-panel--incorrect {
+  border-color: #f85149;
+  background: #f851490d;
+}
+
+.feedback {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.mission-card--complete {
+  text-align: center;
+}
+
+.xp-award {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #00ff9d;
+  margin: 14px 0 0;
+}
+
+@media (max-width: 480px) {
+  .terminal-frame {
+    padding: 22px 16px;
+  }
+
+  .character-options {
+    gap: 12px;
+  }
+
+  .character-option {
+    padding: 14px 8px;
+  }
+
+  .mission-entry-button {
+    flex-wrap: wrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .character-option {
+    transition: none;
+  }
+}
